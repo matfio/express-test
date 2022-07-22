@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/matfio/express-test#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.18.1",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

@@ -1,30 +1,20 @@
+import bodyParser from "body-parser";
 import express, { Application, Request, Response } from "express";
-import { members } from "./data/members";
 import logger from "./middleware/logger";
+import members from "./routes/api/members";
 
 const app: Application = express();
 
 // Init logger
 app.use(logger);
 
-// Get all members
-app.get("/api/members", (req: Request, res: Response) => {
-  res.json(members);
-});
+// Init body parser
+app.use(bodyParser.json());
 
-app.get("/api/members/:id", (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  const found = members.some((m) => m.id === id);
+app.use(express.urlencoded({ extended: false }));
 
-  if (!found) {
-    res.status(400).json({ msg: "Member not found" });
-    return;
-  }
-
-  const member = members.filter((m) => m.id === id);
-
-  res.json(member);
-});
+// Members api route
+app.use("/api/members", members);
 
 const PORT = process.env.PORT || 5000;
 
